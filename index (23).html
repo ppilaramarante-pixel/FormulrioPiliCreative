@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing de Marca — Pili Creative</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #6C3BFF;
+            --primary-dark: #4B22D4;
+            --primary-light: #8D67FF;
+            --bg-gradient-1: #0b081e;
+            --bg-gradient-2: #140e34;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F7;
+            --text-main: #FFFFFF;
+            --text-muted: #A1A1AA;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-input: rgba(255, 255, 255, 0.06);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-gradient-1);
+        }
+
+        body {
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+        }
+
+        /* Fundo Abstrato Premium */
+        .bg-glows {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 0% 0%, #1a0b36 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, #0e0526 0%, transparent 50%),
+                        linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.45;
+            mix-blend-mode: screen;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            right: 15%;
+            width: 450px;
+            height: 450px;
+            background: var(--primary);
+        }
+
+        .orb-2 {
+            bottom: 10%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-dark);
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+
+        /* Container Principal */
+        .wrapper {
+            width: 100%;
+            max-width: 820px;
+            z-index: 2;
+        }
+
+        /* Logo da Agência */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--white), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Card de Boas-vindas */
+        .welcome-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            padding: 45px;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+        }
+
+        .welcome-card h1 {
+            font-size: 1.85rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            background: linear-gradient(120deg, #FFFFFF 40%, #DCD7FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .welcome-card p:last-of-type {
+            margin-bottom: 35px;
+        }
+
+        /* Barra de Progresso */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            height: 8px;
+            width: 100%;
+            position: relative;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            border-radius: 50px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px var(--primary-light);
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Estrutura das Seções do Formulário */
+        .form-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            padding: 45px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cabeçalho de Seção */
+        .section-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 20px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108, 59, 255, 0.15);
+            border: 1px solid rgba(108, 59, 255, 0.3);
+            color: var(--primary-light);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        /* Grupos de Inputs */
+        .input-group {
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Campos de Resposta */
+        .input-text, .input-textarea {
+            width: 100%;
+            background: var(--glass-input);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-weight: 300;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .input-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-text:focus, .input-textarea:focus {
+            border-color: var(--primary-light);
+            background: rgba(108, 59, 255, 0.05);
+            box-shadow: 0 0 0 4px rgba(108, 59, 255, 0.15);
+        }
+
+        .field-obs {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Grid de Checkboxes e Radios */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .choice-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--glass-input);
+            border: 1px solid var(--glass-border);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .choice-box:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .choice-box input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .custom-indicator {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-muted);
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .choice-box input[type="radio"] + .custom-indicator {
+            border-radius: 50%;
+        }
+
+        .choice-box input:checked + .custom-indicator {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .choice-box input:checked + .custom-indicator::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.7rem;
+            color: var(--white);
+        }
+
+        .choice-box input[type="radio"]:checked + .custom-indicator::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+
+        .choice-box input:checked ~ .choice-label {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .choice-box.selected-premium {
+            border-color: var(--primary-light);
+            background: rgba(108, 59, 255, 0.1);
+            box-shadow: 0 0 15px rgba(108, 59, 255, 0.1);
+        }
+
+        .choice-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+
+        .radio-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-stack .choice-box {
+            align-items: flex-start;
+        }
+
+        .radio-stack .custom-indicator {
+            margin-top: 2px;
+        }
+
+        .label-desc {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        /* Mensagens de Erro */
+        .error-message {
+            color: #FF4B4B;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        /* Navegação e Botões */
+        .actions-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(108, 59, 255, 0.3);
+            margin-left: auto;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(108, 59, 255, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Seção de Resumo Opcional antes do envio */
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .summary-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+        }
+
+        .summary-q {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .summary-a {
+            font-size: 0.95rem;
+            color: var(--white);
+        }
+
+        /* Tela de Sucesso Completa */
+        .success-screen {
+            text-align: center;
+            padding: 60px 40px;
+            display: none;
+            animation: scaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-icon-wrap {
+            width: 90px;
+            height: 90px;
+            background: rgba(108, 59, 255, 0.15);
+            border: 2px solid var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 35px rgba(108, 59, 255, 0.3);
+        }
+
+        .success-icon-wrap i {
+            font-size: 2.2rem;
+            color: var(--primary-light);
+        }
+
+        .success-screen h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: linear-gradient(to right, var(--white), #DCD7FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .success-screen p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Loader de Carregamento */
+        .loader-container {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsividade Extrema */
+        @media (max-width: 768px) {
+            body { padding: 20px 12px; }
+            .welcome-card, .form-section { padding: 30px 20px; }
+            .welcome-card h1 { font-size: 1.5rem; }
+            .section-title { font-size: 1.25rem; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+            .btn { width: 100%; justify-content: center; }
+            .actions-container { flex-direction: column-reverse; gap: 12px; }
+            .btn-primary { margin-left: 0; }
+        }
+
+        @media (min-width: 1400px) {
+            .wrapper { max-width: 900px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glows">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="wrapper">
+        <header class="brand-header">
+            <div class="brand-logo">Pili Creative</div>
+        </header>
+
+        <div class="welcome-card" id="welcomeCard">
+            <h1>Seja muito bem-vinda ao seu Briefing de Marca, Dra. Andressa!</h1>
+            <p>Este formulário é o primeiro e mais importante passo da nossa jornada juntos.</p>
+            <p>Aqui na Pili Creative, nós acreditamos que um marketing odontológico eficiente e ético nasce da essência do próprio profissional.</p>
+            <p>O objetivo deste documento é entender a fundo a sua rotina, suas especialidades, o perfil dos seus pacientes e os seus objetivos de carreira.</p>
+            <p>Com as suas respostas, nossa equipe terá todo o insumo estratégico necessário para desenhar um posicionamento único, criar conteúdos altamente direcionados e construir a autoridade que a sua marca merece no mercado.</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-meta">
+                <span id="progressText">Etapa 1 de 5</span>
+                <span id="progressPercentage">0% completo</span>
+            </div>
+        </div>
+
+        <form id="briefingForm" novalidate>
+            
+            <div class="form-section active" data-step="1">
+                <div class="section-header">
+                    <span class="section-badge"><i class="fa-regular fa-id-card"></i> Seção 1</span>
+                    <h2 class="section-title">Identificação Básica</h2>
+                    <p class="section-desc">Para alinhar os dados básicos de contato e apresentação profissional.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q1">1. Nome completo e como prefere ser chamada profissionalmente. *</label>
+                    <input type="text" id="q1" name="nome_profissional" class="input-text" required placeholder="Ex: Dra. Andressa Medeiros">
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Por favor, preencha este campo.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q2">2. Registro no CRO (Conselho Regional de Odontologia). *</label>
+                    <input type="text" id="q2" name="cro" class="input-text" required placeholder="Ex: CRO-SP 12345">
+                    <span class="field-obs">"Essencial para garantir que os conteúdos sigam as normas éticas do Conselho."</span>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> O preenchimento do CRO é obrigatório.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q3">3. Quais são os canais oficiais atuais da clínica? *</label>
+                    <textarea id="q3" name="canais_oficiais" class="input-textarea" required placeholder="Ex: Instagram (@dra.andressa), WhatsApp comercial, Site oficial ou perfil do Google Meu Negócio."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Forneça pelo menos um canal ativo ou indique se está iniciando do zero.</div>
+                </div>
+            </div>
+
+            <div class="form-section" data-step="2">
+                <div class="section-header">
+                    <span class="section-badge"><i class="fa-solid fa-tooth"></i> Seção 2</span>
+                    <h2 class="section-title">Especialidades e Diferenciais Técnicos</h2>
+                    <p class="section-desc">Precisamos entender o seu escopo de atuação para criar abordagens corretas.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label">4. Quais são as suas principais especialidades e focos de atendimento? (Selecione pelo menos uma) *</label>
+                    <div class="checkbox-grid" id="checkboxGroup">
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Ortodontia">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Ortodontia</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Harmonização Orofacial">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Harmonização Orofacial</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Implantes">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Implantes</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Odontopediatria">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Odontopediatria</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Clínica Geral">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Clínica Geral</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Endodontia">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Endodontia</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Periodontia">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Periodontia</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Prótese">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Prótese</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Estética Dental">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Estética Dental</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Clareamento">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Clareamento</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="checkbox" name="especialidades" value="Outros">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Outros</span>
+                        </label>
+                    </div>
+                    <div class="error-message" id="checkboxError"><i class="fa-solid fa-circle-exclamation"></i> Por favor, marque ao menos uma especialidade.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q5">5. Qual é o seu principal carro-chefe? *</label>
+                    <textarea id="q5" name="carro_chefe" class="input-textarea" required placeholder="Aquele tratamento pelo qual você quer ser amplamente reconhecida."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Defina o seu foco mercadológico principal.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q6">6. Existe algum tratamento ou técnica moderna que você realiza e que poucos dentistas da sua região oferecem? *</label>
+                    <textarea id="q6" name="tecnica_moderna" class="input-textarea" required placeholder="Sua tecnologia ou protocolo exclusivo que atua como diferencial."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Escreva o seu diferencial ou 'Não possuo' caso seja ambulatorial comum.</div>
+                </div>
+            </div>
+
+            <div class="form-section" data-step="3">
+                <div class="section-header">
+                    <span class="section-badge"><i class="fa-solid fa-users"></i> Seção 3</span>
+                    <h2 class="section-title">Público-Alvo e Paciente Ideal</h2>
+                    <p class="section-desc">Mapeamento demográfico e comportamental de quem consome seus serviços.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q7">7. Quem é o seu paciente ideal hoje? *</label>
+                    <textarea id="q7" name="paciente_ideal" class="input-textarea" required placeholder="Fale sobre poder aquisitivo, comportamento, idade aproximada e o que ele busca."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Detalhar o cliente ideal ajuda no direcionamento de tráfego.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q8">8. Quais são as maiores dúvidas, medos ou dores que os pacientes manifestam antes de iniciar um tratamento? *</label>
+                    <textarea id="q8" name="dores_pacientes" class="input-textarea" required placeholder="Ex: Medo de dor física, restrições financeiras, tempo de tratamento, traumas antigos..."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Mapear objeções é crucial para produzir conteúdo estratégico.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q9">9. O que os seus pacientes mais elogiam no seu atendimento ou consultório? *</label>
+                    <textarea id="q9" name="elogios_pacientes" class="input-textarea" required placeholder="Seja a pontualidade, o café gourmet, a explicação detalhada do diagnóstico, etc."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Este item realça seu valor implícito.</div>
+                </div>
+            </div>
+
+            <div class="form-section" data-step="4">
+                <div class="section-header">
+                    <span class="section-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Seção 4</span>
+                    <h2 class="section-title">Posicionamento e Identidade da Marca</h2>
+                    <p class="section-desc">Construção do arquétipo de marca e análise mercadológica de posicionamento.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q10">10. Se a sua marca fosse uma pessoa, quais seriam os três principais adjetivos? *</label>
+                    <input type="text" id="q10" name="adjetivos_marca" class="input-text" required placeholder="Ex: Elegante, Acolhedora, Tecnológica">
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Escolha os adjetivos que melhor definem o tom da sua marca.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q11">11. Quais cores representam o seu trabalho ou fazem parte da identidade visual? *</label>
+                    <input type="text" id="q11" name="cores_identidade" class="input-text" required placeholder="Ex: Tons pastéis, Dourado e Branco, Verde Oliva, Azul Tiffany">
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Insira as cores ou indique se deseja redefinir o branding completo.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label" for="q12">12. Quem são seus principais concorrentes locais ou profissionais em quem você se inspira? *</label>
+                    <textarea id="q12" name="concorrentes_inspiracoes" class="input-textarea" required placeholder="Mencione nomes de perfis no Instagram ou clínicas da sua cidade que tenham o padrão que você busca."></textarea>
+                    <div class="error-message"><i class="fa-solid fa-circle-exclamation"></i> Indique ao menos uma referência visual ou mercadológica.</div>
+                </div>
+            </div>
+
+            <div class="form-section" data-step="5">
+                <div class="section-header">
+                    <span class="section-badge"><i class="fa-solid fa-chart-line"></i> Seção 5</span>
+                    <h2 class="section-title">Expectativas com o Marketing</h2>
+                    <p class="section-desc">Definição clara de metas e dinâmicas operacionais de produção.</p>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label">13. Qual é o seu principal objetivo com as redes sociais? *</label>
+                    <div class="radio-stack" id="radioGoalGroup">
+                        <label class="choice-box">
+                            <input type="radio" name="objetivo_marketing" value="Atrair novos pacientes">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Atrair novos pacientes</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="radio" name="objetivo_marketing" value="Fidelizar pacientes">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Fidelizar pacientes</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="radio" name="objetivo_marketing" value="Construir autoridade">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Construir autoridade</span>
+                        </label>
+                        <label class="choice-box">
+                            <input type="radio" name="objetivo_marketing" value="Divulgar um novo tratamento">
+                            <div class="custom-indicator"></div>
+                            <span class="choice-label">Divulgar um novo tratamento</span>
+                        </label>
+                    </div>
+                    <div class="error-message" id="radioGoalError"><i class="fa-solid fa-circle-exclamation"></i> Escolha o objetivo principal.</div>
+                </div>
+
+                <div class="input-group">
+                    <label class="field-label">14. Qual é o seu nível de disponibilidade para gravar vídeos? *</label>
+                    <div class="radio-stack" id="radioVideoGroup">
+                        <label class="choice-box">
+                            <input type="radio" name="disponibilidade_videos" value="Alta">
+                            <div class="custom-indicator"></div>
+                            <div class="choice-label">
+                                Alta
+                                <span class="label-desc">(Gravo toda semana.)</span>
+                            </div>
+                        </label>
+                        <label class="choice-box">
+                            <input type="radio" name="disponibilidade_videos" value="Média">
+                            <div class="custom-indicator"></div>
+                            <div class="choice-label">
+                                Média
+                                <span class="label-desc">(Consigo gravar algumas coisas, mas tenho vergonha de aparecer.)</span>
+                            </div>
+                        </label>
+                        <label class="choice-box">
+                            <input type="radio" name="disponibilidade_videos" value="Baixa">
+                            <div class="custom-indicator"></div>
+                            <div class="choice-label">
+                                Baixa
+                                <span class="label-desc">(Prefiro conteúdos sem depender da minha imagem.)</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="error-message" id="radioVideoError"><i class="fa-solid fa-circle-exclamation"></i> Por favor, selecione sua disponibilidade.</div>
+                </div>
+
+                <div class="input-group" style="margin-top: 45px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 30px;">
+                    <label class="field-label" style="font-size: 1.1rem; color: var(--primary-light);"><i class="fa-solid fa-list-check"></i> Resumo de Conferência</label>
+                    <p class="section-desc" style="margin-bottom: 20px;">Dê uma última checada rápida nas suas respostas anteriores antes de realizar o envio final para nossa equipe estratégica.</p>
+                    <div class="summary-list" id="summaryContainer">
+                        </div>
+                </div>
+            </div>
+
+            <div class="actions-container">
+                <button type="button" class="btn btn-secondary" id="btnPrev" style="display: none;">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNext">
+                    <span>Continuar</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="btn btn-primary" id="btnSubmit" style="display: none;">
+                    <div class="loader-container" id="loader">
+                        <div class="spinner"></div>
+                        <span>Processando...</span>
+                    </div>
+                    <span id="btnSubmitText">Enviar Briefing</span>
+                </button>
+            </div>
+        </form>
+
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon-wrap">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h2>Briefing Enviado com Sucesso!</h2>
+            <p>Muito obrigado pela sua dedicação, Dra. Andressa. Nossos estrategistas e designers seniores já foram notificados e estão analisando cada detalhe da sua marca. A equipe da <strong>Pili Creative</strong> entrará em contato em breve para apresentar os próximos passos estratégicos.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll(".form-section");
+            const btnPrev = document.getElementById("btnPrev");
+            const btnNext = document.getElementById("btnNext");
+            const btnSubmit = document.getElementById("btnSubmit");
+            const btnSubmitText = document.getElementById("btnSubmitText");
+            const loader = document.getElementById("loader");
+            const briefingForm = document.getElementById("briefingForm");
+            const successScreen = document.getElementById("successScreen");
+            const welcomeCard = document.getElementById("welcomeCard");
+            
+            const progressBar = document.getElementById("progressBar");
+            const progressText = document.getElementById("progressText");
+            const progressPercentage = document.getElementById("progressPercentage");
+            const summaryContainer = document.getElementById("summaryContainer");
+
+            let currentStep = 1;
+            const totalSteps = sections.length;
+
+            // Gerenciador Visual Premium para Boxes de Seleção Activas
+            function bindChoiceBoxes() {
+                document.querySelectorAll(".choice-box input").forEach(input => {
+                    const box = input.closest(".choice-box");
+                    
+                    if (input.checked) {
+                        box.classList.add("selected-premium");
+                    }
+
+                    input.addEventListener("change", () => {
+                        if (input.type === "radio") {
+                            const groupName = input.getAttribute("name");
+                            document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                                r.closest(".choice-box").classList.remove("selected-premium");
+                            });
+                        }
+                        if (input.checked) {
+                            box.classList.add("selected-premium");
+                        } else {
+                            box.classList.remove("selected-premium");
+                        }
+                        saveFormDataToStorage();
+                    });
+                });
+            }
+
+            // Atualização de Feedback da Barra de Progresso
+            function updateProgressBar() {
+                const percentage = Math.round(((currentStep - 1) / totalSteps) * 100);
+                progressBar.style.width = `${percentage}%`;
+                progressText.innerText = `Etapa ${currentStep} de ${totalSteps}`;
+                progressPercentage.innerText = `${percentage}% completo`;
+            }
+
+            // Mudança suave e estruturada de Etapas
+            function showStep(step) {
+                sections.forEach(sec => sec.classList.remove("active"));
+                const targetSection = document.querySelector(`.form-section[data-step="${step}"]`);
+                targetSection.classList.add("active");
+
+                if (step === 1) {
+                    btnPrev.style.display = "none";
+                } else {
+                    btnPrev.style.display = "inline-flex";
+                }
+
+                if (step === totalSteps) {
+                    btnNext.style.display = "none";
+                    btnSubmit.style.display = "inline-flex";
+                    renderSummary();
+                } else {
+                    btnNext.style.display = "inline-flex";
+                    btnSubmit.style.display = "none";
+                }
+
+                currentStep = step;
+                updateProgressBar();
+                window.scrollTo({ top: welcomeCard.offsetTop - 20, behavior: "smooth" });
+            }
+
+            // Sistema Avançado de Validação Interna por Seção
+            function validateCurrentStep() {
+                const currentSection = document.querySelector(`.form-section[data-step="${currentStep}"]`);
+                let isValid = true;
+
+                // Inputs Text e Textarea Normais
+                const requiredInputs = currentSection.querySelectorAll("input[required], textarea[required]");
+                requiredInputs.forEach(input => {
+                    const err = input.parentElement.querySelector(".error-message");
+                    if (!input.value.trim()) {
+                        input.style.borderColor = "#FF4B4B";
+                        if (err) err.style.display = "flex";
+                        isValid = false;
+                    } else {
+                        input.style.borderColor = "";
+                        if (err) err.style.display = "none";
+                    }
+                });
+
+                // Validação do Grid de Checkbox na Seção 2
+                if (currentStep === 2) {
+                    const checkboxes = currentSection.querySelectorAll('input[name="especialidades"]');
+                    const checkboxError = document.getElementById("checkboxError");
+                    let checkedCount = 0;
+                    checkboxes.forEach(cb => { if (cb.checked) checkedCount++; });
+
+                    if (checkedCount === 0) {
+                        checkboxError.style.display = "flex";
+                        isValid = false;
+                    } else {
+                        checkboxError.style.display = "none";
+                    }
+                }
+
+                // Validação dos Radios na Seção 5
+                if (currentStep === 5) {
+                    const goals = currentSection.querySelectorAll('input[name="objetivo_marketing"]');
+                    const goalError = document.getElementById("radioGoalError");
+                    let goalChecked = false;
+                    goals.forEach(r => { if (r.checked) goalChecked = true; });
+
+                    if (!goalChecked) {
+                        goalError.style.display = "flex";
+                        isValid = false;
+                    } else {
+                        goalError.style.display = "none";
+                    }
+
+                    const videos = currentSection.querySelectorAll('input[name="disponibilidade_videos"]');
+                    const videoError = document.getElementById("radioVideoError");
+                    let videoChecked = false;
+                    videos.forEach(r => { if (r.checked) videoChecked = true; });
+
+                    if (!videoChecked) {
+                        videoError.style.display = "flex";
+                        isValid = false;
+                    } else {
+                        videoError.style.display = "none";
+                    }
+                }
+
+                return isValid;
+            }
+
+            // Compila as respostas salvas para exibir na tela final de revisão rápida
+            function renderSummary() {
+                summaryContainer.innerHTML = "";
+                
+                const questions = [
+                    { id: "q1", label: "Nome Profissional" },
+                    { id: "q2", label: "CRO" },
+                    { id: "q3", label: "Canais Oficiais" },
+                    { id: "q5", label: "Tratamento Carro-chefe" },
+                    { id: "q6", label: "Técnica Diferencial" },
+                    { id: "q7", label: "Paciente Ideal" },
+                    { id: "q8", label: "Dores/Medos do Cliente" },
+                    { id: "q9", label: "Elogios mais Comuns" },
+                    { id: "q10", label: "Três Adjetivos da Marca" },
+                    { id: "q11", label: "Cores da Identidade Visual" },
+                    { id: "q12", label: "Concorrentes e Inspirações" }
+                ];
+
+                questions.forEach(q => {
+                    const elem = document.getElementById(q.id);
+                    if (elem) {
+                        const div = document.createElement("div");
+                        div.className = "summary-item";
+                        div.innerHTML = `
+                            <div class="summary-q">${q.label}</div>
+                            <div class="summary-a">${elem.value || "<span style='color:#ff4b4b;'>Não preenchido</span>"}</div>
+                        `;
+                        summaryContainer.appendChild(div);
+                    }
+                });
+            }
+
+            // Persistência Automática das Respostas (LocalStorage)
+            function saveFormDataToStorage() {
+                const formData = {};
+                
+                // Salva inputs de texto e textareas
+                briefingForm.querySelectorAll("input[type='text'], textarea").forEach(input => {
+                    formData[input.id || input.name] = input.value;
+                });
+
+                // Salva Checkboxes
+                const specialities = [];
+                briefingForm.querySelectorAll('input[name="especialidades"]:checked').forEach(cb => {
+                    specialities.push(cb.value);
+                });
+                formData['especialidades'] = specialities;
+
+                // Salva Radios
+                const goal = briefingForm.querySelector('input[name="objetivo_marketing"]:checked');
+                formData['objetivo_marketing'] = goal ? goal.value : '';
+
+                const video = briefingForm.querySelector('input[name="disponibilidade_videos"]:checked');
+                formData['disponibilidade_videos'] = video ? video.value : '';
+
+                localStorage.setItem("pili_briefing_draft", JSON.stringify(formData));
+            }
+
+            // Recuperação Automática de Dados Salvos previamente
+            function loadFormDataFromStorage() {
+                const saved = localStorage.getItem("pili_briefing_draft");
+                if (!saved) return;
+
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Restaura inputs de texto e áreas de texto
+                    for (const key in data) {
+                        const elem = document.getElementById(key) || briefingForm.querySelector(`[name="${key}"]`);
+                        if (elem && (elem.tagName === "INPUT" || elem.tagName === "TEXTAREA")) {
+                            elem.value = data[key];
+                        }
+                    }
+
+                    // Restaura Checkboxes
+                    if (data.especialidades && Array.isArray(data.especialidades)) {
+                        data.especialidades.forEach(val => {
+                            const cb = briefingForm.querySelector(`input[name="especialidades"][value="${val}"]`);
+                            if (cb) cb.checked = true;
+                        });
+                    }
+
+                    // Restaura Radios
+                    if (data.objetivo_marketing) {
+                        const rb = briefingForm.querySelector(`input[name="objetivo_marketing"][value="${data.objetivo_marketing}"]`);
+                        if (rb) rb.checked = true;
+                    }
+
+                    if (data.disponibilidade_videos) {
+                        const rb = briefingForm.querySelector(`input[name="disponibilidade_videos"][value="${data.disponibilidade_videos}"]`);
+                        if (rb) rb.checked = true;
+                    }
+
+                } catch (e) {
+                    console.error("Erro ao carregar rascunho salvo do LocalStorage", e);
+                }
+            }
+
+            // Event Listeners Dinâmicos para Digitação (Limpar erros e salvar online)
+            briefingForm.querySelectorAll("input, textarea").forEach(input => {
+                input.addEventListener("input", () => {
+                    if (input.value.trim()) {
+                        input.style.borderColor = "";
+                        const err = input.parentElement.querySelector(".error-message");
+                        if (err) err.style.display = "none";
+                    }
+                    saveFormDataToStorage();
+                });
+            });
+
+            // Handlers de Clique nos Botões de Navegação
+            btnNext.addEventListener("click", () => {
+                if (validateCurrentStep()) {
+                    showStep(currentStep + 1);
+                }
+            });
+
+            btnPrev.addEventListener("click", () => {
+                showStep(currentStep - 1);
+            });
+
+            // Envio Final Estruturado com Animação e Gatilho de Confetes Premium
+            briefingForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                if (!validateCurrentStep()) return;
+
+                // Estado de Carregamento Premium (Simulando Envio Assíncrono Seguro)
+                btnSubmitText.style.display = "none";
+                loader.style.display = "flex";
+                btnSubmit.style.pointerEvents = "none";
+                btnSubmit.style.opacity = "0.8";
+
+                setTimeout(() => {
+                    // Limpeza de cache após envio concluído
+                    localStorage.removeItem("pili_briefing_draft");
+
+                    // Transição Suave de Telas
+                    briefingForm.style.display = "none";
+                    welcomeCard.style.display = "none";
+                    successScreen.style.display = "block";
+                    
+                    // Disparo dos Confetes de Celebração (Cores personalizadas da Pili Creative)
+                    const duration = 4 * 1000;
+                    const end = Date.now() + duration;
+
+                    (function frame() {
+                        confetti({
+                            particleCount: 3,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0, y: 0.8 },
+                            colors: ['#6C3BFF', '#8D67FF', '#FFFFFF']
+                        });
+                        confetti({
+                            particleCount: 3,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1, y: 0.8 },
+                            colors: ['#4B22D4', '#8D67FF', '#FFFFFF']
+                        });
+
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+
+                }, 2200);
+            });
+
+            // Inicialização da Aplicação
+            loadFormDataFromStorage();
+            bindChoiceBoxes();
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
